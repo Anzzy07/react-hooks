@@ -1,9 +1,12 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 //Use ref is used to access & manipulate dom elements.
 // What we are doing is here acessing here dom element..
 // from input & tell browser after clicking in button
 // then focus on input field
+
+//it can also be used to store value o previous state even ..
+// though it would change in re-render
 export const UseRef = () => {
   const inputRef = useRef(null);
 
@@ -17,5 +20,22 @@ export const UseRef = () => {
       <input type="text" placeholder="Ex..." ref={inputRef} />
       <button onClick={onClick}>Change Name</button>
     </div>
+  );
+};
+
+export const RefExample2 = () => {
+  const [count, setCount] = useState(0);
+  const prevCount = useRef(0);
+
+  useEffect(() => {
+    prevCount.current = count;
+  }, [count]);
+
+  return (
+    <>
+      <p>Count :{count}</p>
+      <p>Previos Count :{prevCount.current}</p>
+      <button onClick={() => setCount((prev) => prev + 1)}>Increase</button>
+    </>
   );
 };
